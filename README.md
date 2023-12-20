@@ -94,3 +94,35 @@ A [ImpulsoGOV](https://www.impulsogov.org/) é uma organização de tecnologia d
 | 🔗  | **Conexão Direta**                  | Estabelecimento de uma ligação direta entre dois componentes para transferência eficiente de dados. | A `Conexão Direta` entre o `Transmissor` e os `Bancos` garante transferência eficiente.              |
 
 </details>
+
+---
+
+#### 🔄 &nbsp; 2.2 - Digrama de Sequência
+
+```mermaid
+
+sequenceDiagram
+  participant Transmissor
+  participant BancoMunicipio
+  participant BancoAnalitico
+
+  Transmissor ->> BancoMunicipio: Conectar ao BancoMunicipio
+  activate BancoMunicipio
+
+  Transmissor ->> BancoMunicipio: Executar consulta em tabelas locais
+  note over BancoMunicipio: Procedure no BancoMunicipio
+
+  BancoMunicipio -->> Transmissor: Resultados da consulta
+
+  Transmissor ->> BancoAnalitico: Conectar ao BancoAnalitico da ImpulsoGov
+  activate BancoAnalitico
+
+  Transmissor ->> BancoAnalitico: Inserir resultados no BancoAnalitico
+  note over BancoAnalitico: Transformação e carga de dados
+
+  BancoAnalitico -->> Transmissor: Confirmação de carga
+
+  deactivate BancoMunicipio
+  deactivate BancoAnalitico
+
+```
