@@ -5,7 +5,13 @@
   </p>
 </div>
 
-## Sumário
+<div align="center">
+
+[![🧚 Hey! Essa documentação foi composta ao som de Jorge Ben Jor"](https://img.shields.io/badge/🧚%20Hey!%20Documentação%20composta%20com%20❤️%20ao%20som%20de%20%22Jorge%20Ben%20Jor%22%20no-Spotify-1DB954?logo=spotify)](https://open.spotify.com/track/6WohVJvZ6RYmYN8Nxl9VHa?si=cf67a94095664ef1)
+
+</div>
+
+## 📑 Sumário
 
 - [1 - Introdução](#)
 - [2 - Mapeamento de componentes do sistema](#)
@@ -19,16 +25,17 @@
   - [4.2 - Implementação de Processo de ETL Apache Airflow](#)
   - [4.3 - Melhorias no Processo de Comunicação - API intermediária](#)
   - - [4.3.1 - Proposta de implementação](#)
+- [5 - Proposta de roadmap](#)
 
 ---
 
-## 1 - Introdução
+## 1 - 🌐 Introdução
 
 A [ImpulsoGOV](https://www.impulsogov.org/) é uma organização de tecnologia do terceiro setor que faz uso inteligente de dados para transformar a saúde pública do Brasil.
 
 [🎯 Desafio original](https://impulsogov.notion.site/Case-CTO-885231d00e494dc5bd2332f1053d3cbd)
 
-## 2 - Mapeamento de componentes do sistema:
+## 2 - 🗺️ Mapeamento de componentes do sistema:
 
 <details>
   <summary>
@@ -61,7 +68,7 @@ A [ImpulsoGOV](https://www.impulsogov.org/) é uma organização de tecnologia d
 
 ---
 
-#### 🏗️ &nbsp; 2.1 - Modelagem do Domínio (DDD - Domain Driven Design)
+#### 2.1 - 🏗️ Modelagem do Domínio (DDD - Domain Driven Design)
 
 <details>
   <summary>
@@ -114,7 +121,7 @@ A [ImpulsoGOV](https://www.impulsogov.org/) é uma organização de tecnologia d
 
 ---
 
-#### 🔄 &nbsp; 2.2 - Digrama de Sequência
+#### 2.2 - 🔄 Digrama de Sequência
 
 ```mermaid
 
@@ -146,7 +153,9 @@ sequenceDiagram
 
 ---
 
-## 🧐 &nbsp; 3 - Análise Crítica e Identificação de Riscos
+## 3 - 🧐 Análise Crítica e Identificação de Riscos
+
+<img src="docs/referee-var.gif" align="right" alt="VAR" width="120" />
 
 > 📢 Nota: Eu fiz a avaliação exclusivamente com base nas informações e tecnologias fornecidas durante os processos de entrevistas com [Pedro Drummond](https://www.linkedin.com/in/pedro-drummond/), [Gabrielle Arruda](https://www.linkedin.com/in/gabrielle-arruda/) e o escopo do case proposto pelo **Levi**.
 >
@@ -160,8 +169,10 @@ sequenceDiagram
 > ██║   ██║   ███████║       ██║   ██║██║ ╚═╝ ██║███████╗██╗
 > ╚═╝   ╚═╝   ╚══════╝       ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝╚═╝
 > ```
+>
+> A partir do _diagrama de sequência_ identifiquei alguns pontos **"protocolares"** que são importantes serem validadas antes de iniciativas de escala, começando pela inspeção da saúde do sistema, seus componentes e seus indicadores (se diponíveis) de forma análoga ao processo da aviação conhecidos como [checklist e preflight](https://hangarmma.com.br/blog/o-que-sao-checklists-de-voo/) - Não à toa, esses termos também são usados em engenharia de software.
 
-A partir do diagrama de sequência identifiquei alguns pontos **"protocolares"** são importantes ser validados antes de iniciativas de escala: Inspecionar a saúde do sistema e de seus componentes de forma análoga [aviação (checklist e preflight)](https://hangarmma.com.br/blog/o-que-sao-checklists-de-voo/):
+Segue a análise crítica a partir dessa filosofia:
 
 | **Aspecto**                 | **Vantagens**                           | **Pontos de Atenção**                                 | **Validações**                                                                                                                                                                                          | **Mitigação de Risco**                                                                                                                                                                           | **Sugestões**                                                                                                                                                                                              |
 | --------------------------- | --------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -189,26 +200,32 @@ A partir do diagrama de sequência identifiquei alguns pontos **"protocolares"**
 
 ---
 
-#### 💡 &nbsp; 3.1 - Insights de "Quick Wins":
+#### 3.1 - 💡 Insights de "Quick Wins":
 
-- 👉 Boa parte das validações implicam no monitoramento e o **FastAPI** possui suporte nativo para [Prometheus](https://prometheus.io/) para coletar métricas de desempenho, latência e etc, que podem ser integradas diretamente outras soluções de visualização de métricas como o [Grafana](https://grafana.com/) - [Tutorial de exemplo](https://dev.to/ken_mwaura1/getting-started-monitoring-a-fastapi-app-with-grafana-and-prometheus-a-step-by-step-guide-3fbn), e ambas também podem ser integradas a ferramentas de instrumentalização como o **OpenTelemetry** para a gestão de dados de telemetria garantindo `visão sistêmica holística` de todos os `domínios de aplicações` da **ImpulsoGOV** - [Tutorial de exemplo](https://grafana.com/blog/2022/05/10/how-to-collect-prometheus-metrics-with-the-opentelemetry-collector-and-grafana/.)
+- 👉 Boa parte das validações implicam no monitoramento e o **FastAPI** possui suporte nativo para [Prometheus](https://prometheus.io/) para coletar métricas de desempenho, latência e etc, que podem ser integradas diretamente a outras soluções de visualização de métricas como o [Grafana](https://grafana.com/) - [Tutorial de exemplo](https://dev.to/ken_mwaura1/getting-started-monitoring-a-fastapi-app-with-grafana-and-prometheus-a-step-by-step-guide-3fbn)
+- Ambas podem ser integradas a ferramentas de instrumentalização como o **OpenTelemetry** para a gestão de dados de telemetria, garantindo `visão sistêmica holística` de todos os `domínios de aplicações` da **ImpulsoGOV** - [Tutorial de exemplo](https://grafana.com/blog/2022/05/10/how-to-collect-prometheus-metrics-with-the-opentelemetry-collector-and-grafana/.)
 
 ---
 
-## 🧭 &nbsp; 3.2 - ImpulsoGOV Tech Radar
+## 3.2 - 🧭 ImpulsoGOV Tech Radar
 
-A partir do contexto e do mapeamento eu produzi uma versão _muuito_ mais simplificada de um [tech radar](https://www.thoughtworks.com/en-br/radar) (_com o objetivo de manter o escopo do desafio_) mas que ajuda a construir uma representação visual clara do cenário tecnológico, facilita a tomada de decisões estratégicas e o alinhamento das escolhas tecnológicas com os objetivos de negócios - já adicionando algumas das sugestões de melhorias e integrações.
+A partir do mapeamento das tecnologias _(descritas no escopo do desafio)_ eu produzi uma versão **muito simplificada** de um [tech radar](https://www.thoughtworks.com/en-br/radar) - que ajuda a construir uma representação visual clara do cenário tecnológico da organização, facilitando a tomada de decisões estratégicas e o alinhamento das escolhas tecnológicas com os objetivos de negócios de médio e longo prazo.
+
+A ideia aqui é levantar foi levantar algumas ideias de possibilidades (algumas eu mesmo pivotei durante o processo):
 
 [![](https://mermaid.ink/img/pako:eNqVlF2TmjAUhv9KJh2vijtqYFUuOuP4sd2dbmtXpp_sRQoHySwQGoKVOvz3hkQrdnTGcsHF-zw5CSE5OxzwELCLO50dy5h00c7HP0saCprJaUyF9HGTZUg9Pg6a5DMLZdzEI9Kz0Al6C2wdyz2rj1DGkMInKhj9kUDRKmnwYcL-giVJQ338isxvp_bAx4cip-agZfYXg6k9u2SSljlcEIc4l0y7bc6HczJW5tllerCVLTmKoovrvF4l16v2WfWcueQsu7KoVq8u_GWyZcU_tjOckplzYcDX_x3gMZnAGdm4NarrTsfPTs-qQrIZhu7TvEwKfsc3yIMgRk80pKLB2y5V60DzDZNUoG73DZqEXBpWGeZB8ZdtaMIMPEzU7aP5NqdZyE7jAVoKnvINnMYEPQE9U8VGj5DEXJj4vdqXh5WLvvdubi2kXs9NuqxkzDP0Gi1oISfLe82HTiMMHWOoKUFdrrI4jh0ZdCdoHn98p_OeBo4BXpVDEQiWS80GTot9yCHzIFGXVYpKY1vjMTnUjGhGW2A_2YwHLyB0bsrpdAVCbYe68MWREIMe1J60FmE3yB5oNMlpEAOaMBEl_Ffrmw1e8kKuBRSr_bcZdus8YwunIFLKQtXOdHvZ9x1zftT_f2kOT608Wkq-qrIAu1KUYOEyD6mEGaNrQVPsRjQpVKp-MnZ3eIvdnoUr7PZHN05t4d-cK0ftiXnsHhmrpuL0LQwhk1w8moaq-6ou8k0PaGaq_wAwQ58w?type=png)](https://mermaid.live/edit#pako:eNqVlF2TmjAUhv9KJh2vijtqYFUuOuP4sd2dbmtXpp_sRQoHySwQGoKVOvz3hkQrdnTGcsHF-zw5CSE5OxzwELCLO50dy5h00c7HP0saCprJaUyF9HGTZUg9Pg6a5DMLZdzEI9Kz0Al6C2wdyz2rj1DGkMInKhj9kUDRKmnwYcL-giVJQ338isxvp_bAx4cip-agZfYXg6k9u2SSljlcEIc4l0y7bc6HczJW5tllerCVLTmKoovrvF4l16v2WfWcueQsu7KoVq8u_GWyZcU_tjOckplzYcDX_x3gMZnAGdm4NarrTsfPTs-qQrIZhu7TvEwKfsc3yIMgRk80pKLB2y5V60DzDZNUoG73DZqEXBpWGeZB8ZdtaMIMPEzU7aP5NqdZyE7jAVoKnvINnMYEPQE9U8VGj5DEXJj4vdqXh5WLvvdubi2kXs9NuqxkzDP0Gi1oISfLe82HTiMMHWOoKUFdrrI4jh0ZdCdoHn98p_OeBo4BXpVDEQiWS80GTot9yCHzIFGXVYpKY1vjMTnUjGhGW2A_2YwHLyB0bsrpdAVCbYe68MWREIMe1J60FmE3yB5oNMlpEAOaMBEl_Ffrmw1e8kKuBRSr_bcZdus8YwunIFLKQtXOdHvZ9x1zftT_f2kOT608Wkq-qrIAu1KUYOEyD6mEGaNrQVPsRjQpVKp-MnZ3eIvdnoUr7PZHN05t4d-cK0ftiXnsHhmrpuL0LQwhk1w8moaq-6ou8k0PaGaq_wAwQ58w)
 
-## 🔩 &nbsp; 4 - Proposta de Melhorias no Processo de ETL e Comunicação de Dados:
+## 4 - 🔩 Proposta de Melhorias no Processo de ETL e Comunicação de Dados:
 
-> 📢 Nota: Com base nas informações compartilhadas durante os processos de entrevistas com [Pedro Drummond](https://www.linkedin.com/in/pedro-drummond/) e [Gabrielle Arruda](https://www.linkedin.com/in/gabrielle-arruda/) entendi que a **ImpulsoGOV** utiliza as soluções cloud **GCP**. Optei por propor **soluções incrementais** - utilizando o serviço adotado.
+> 📢 Nota: Com base nas informações compartilhadas durante os processos de entrevistas com [Pedro Drummond](https://www.linkedin.com/in/pedro-drummond/) e [Gabrielle Arruda](https://www.linkedin.com/in/gabrielle-arruda/) entendi que a **ImpulsoGOV** utiliza as soluções cloud **GCP**.
+
+- Optei por propor **soluções incrementais** - utilizando o ecossistema cloud já utilizado - Seguimos de GCP.
 
 #### 4.1 - 📥 Novo Método de Extração e Transmissão - API Restful:
 
-- [ ] `Introdução de API Restful para Extração`:
-  - **Motivação**: Minimizar os riscos de `segurança (da comunicação direta entre os bancos)` e otimizar a eficiência da extração de dados dos **bancos municipais** na infraestrutura da Google Cloud Platform (GCP).
+`Introdução de API Restful para Extração`:
+
+**Motivação**: Minimizar os riscos de `segurança (da comunicação direta entre os bancos)` e otimizar a eficiência da extração de dados dos **bancos municipais** na infraestrutura da GCP.
 
 **Benefícios**:
 
@@ -253,7 +270,7 @@ sequenceDiagram
 > - `650 municipios` atualmente com uma **média** entre a `5 - 8 usuários`
 > - A consolidação é feita diariamente, _logo_ **não** se trata de uma `aplicação real time`, o que _descarta_ integrações sistêmicas mais robustas como Apache Kafka e comunicação entre microserviços.
 
-- **Motivação**: Garantir maior confiabilidade, monitoramento e controle nas operações de ETL na infraestrutura da GCP.
+**Motivação**: Garantir maior confiabilidade, monitoramento e controle nas operações de ETL na infraestrutura da GCP.
 
 **Benefícios**:
 
@@ -427,3 +444,73 @@ sequenceDiagram
   deactivate Apache_Airflow
 
 ```
+
+---
+
+## 5 - 🚀 Proposta de Roadmap
+
+> Com base na estrutura atual de times do ImpulsoGOV e no prazo de _balisamento_ `6 meses` sugerido pelo **Levi** e da `proposta de implementação final` acima - propûs um Roadmap / Backlog (macro) com os critérios de aceitação e alocação de responsáveis.
+
+**Escopo do case**
+
+> Você tem `Engenheiros de Software`, `Engenheiros de Dados`, `Designers de Produto` e um `Product Manager` no time de engenharia e produto.
+>
+> [🎯 Desafio original](https://impulsogov.notion.site/Case-CTO-885231d00e494dc5bd2332f1053d3cbd)
+
+<img src="docs/avengers-assemble.gif" alt="avengers" width="100%" />
+
+### `Fase 1`: Melhorias na Comunicação com o Banco do Município
+
+#### Desenvolvimento da API Intermediária
+
+- **📅 Tarefa:** Implementar uma API intermediária utilizando FastAPI e Python.
+- **🤝 Responsável:** `Engenheiros de Software`.
+- **🎯 Critérios de Aceitação:** API funcional que recebe solicitações do Transmissor.
+
+#### Integração com Cloud Pub/Sub
+
+- **📅 Tarefa:** Integrar a API Intermediária ao Cloud Pub/Sub para publicar e receber mensagens.
+- **🤝 Responsável:** `Engenheiros de Software`.
+- **🎯 Critérios de Aceitação:** A API usa Cloud Pub/Sub para gerenciar a comunicação.
+
+---
+
+### `Fase 2`: Autenticação e Extração Segura de Dados
+
+#### Implementação da Cloud Function
+
+- **📅 Tarefa:** Criar uma Cloud Function para autenticação e extração segura de dados do Banco do Município.
+- **🤝 Responsável:** `Engenheiros de Software e Engenheiros de Dados`.
+- **🎯 Critérios de Aceitação:** A Cloud Function realiza autenticação usando IAM e extrai dados com segurança.
+
+---
+
+### `Fase 3`: Aprimoramento do Apache Airflow e Monitoramento
+
+#### Configuração do Apache Airflow
+
+- **📅 Tarefa:** Configurar DAGs no Apache Airflow para orquestração eficaz.
+- **🤝 Responsável:** `Engenheiros de Software` e `Engenheiros de Dados`.
+- **🎯 Critérios de Aceitação:** Apache Airflow é configurado para executar tarefas ETL.
+
+#### Integração de Monitoramento
+
+- **📅 Tarefa:** Integrar OpenTelemetry, Prometheus e Grafana para monitorar o sistema.
+- **🤝 Responsável:** `Engenheiros de Software` e `Engenheiros de Dados`.
+- **🎯 Critérios de Aceitação:** Sistema integrado com métricas detalhadas e visualização eficiente.
+
+---
+
+## `Fase 4`: Testes e Documentação
+
+#### Testes de Carga e Desempenho
+
+- **📅 Tarefa:** Realizar testes de carga para identificar e otimizar possíveis gargalos.
+- **🤝 Responsável:** `Engenheiros de Software e Engenheiros de Dados`.
+- **🎯 Critérios de Aceitação:** Identificação e mitigação de possíveis gargalos.
+
+#### Documentação e Treinamento
+
+- **📅 Tarefa:** Documentar o sistema e fornecer treinamento remoto para garantir padronização.
+- **🤝 Responsável:** `Engenheiros de Software`, `Engenheiros de Dados` e `Designers de Produto`.
+- **🎯 Critérios de Aceitação:** Documentação clara e treinamento remoto realizado.
